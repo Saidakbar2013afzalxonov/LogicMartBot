@@ -24,3 +24,19 @@ def job_menu():
         ],
         resize_keyboard=True
     )
+
+def start_reply_admin():
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="Profilim"),KeyboardButton(text="Ish topish")],
+            [KeyboardButton(text="Admin panel")]
+        ],
+        resize_keyboard=True
+    )
+
+def admin_panel():
+    return ReplyKeyboardMarkup(
+        keyboard=[
+            [KeyboardButton(text="users")]
+        ]
+    )

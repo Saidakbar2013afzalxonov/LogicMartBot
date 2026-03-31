@@ -7,14 +7,16 @@ class Database:
     async def connection(self):
         self.pool = await asyncpg.create_pool(
             user="postgres",
-            password="YOUR_PASSWORD",
-            database="LogicMartBot",
+            password="1234",
+            database="logicmartbot",
             host="localhost"
         )
 
     async def is_user_exists(self, user_id):
         async with self.pool.acquire() as conn:
-            res = await conn.fetchrow("SELECT * FROM users WHERE user_id=$1", user_id)
+            res = await conn.fetchrow(
+                "SELECT * FROM users WHERE user_id=$1", user_id
+            )
             return bool(res)
 
     async def add_user(self, user_id, name, surename, age, phone):
@@ -26,4 +28,11 @@ class Database:
 
     async def get_user(self, user_id):
         async with self.pool.acquire() as conn:
-            return await conn.fetchrow("SELECT * FROM users WHERE user_id=$1", user_id)
+            return await conn.fetchrow(
+                "SELECT * FROM users WHERE user_id=$1", user_id
+            )
+        
+    async def get_user_role(self, telegram_id):
+        query = """SELECT role FROM users WHERE telegram_id=$1"""
+        return await self.pool.fetchval(query, telegram_id)
+ 

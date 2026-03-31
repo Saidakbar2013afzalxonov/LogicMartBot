@@ -22,7 +22,7 @@ async def main():
     dp.include_router(profile_router)
     dp.include_router(jobs_router)
 
-    print("Bot ishga tushdi...")
+    print("Bot is starting...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":

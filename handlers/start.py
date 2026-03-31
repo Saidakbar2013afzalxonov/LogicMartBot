@@ -1,7 +1,10 @@
+from keyboards.reply import register
 from aiogram import Router, F
 from aiogram.types import Message
-from keyboards.reply import main_menu, job_menu
+from keyboards.reply import job_menu
 from keyboards.inline import online_jobs_keyboard, offline_jobs_keyboard
+from filters.adminfilter import RoleFilter
+from aiogram.filters import CommandStart
 
 router = Router()
 
@@ -20,3 +23,7 @@ async def online_job(msg: Message):
 @router.message(F.text == "Offline ish")
 async def offline_job(msg: Message):
     await msg.answer("Offline ishlar ro'yxati:", reply_markup=offline_jobs_keyboard())
+
+@router.message(CommandStart(),RoleFilter('admin'))
+async def start_handler(msg:Message,):
+        await msg.answer("Assalomu Alaykum admin botga xush kelibsz!",reply_markup=start_reply_admin())
